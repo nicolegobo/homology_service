@@ -321,6 +321,14 @@ sub preflight
     my $min_time = 120 * 60;
     
     $time = $min_time if $time < $min_time;
+
+    #
+    # Cap the runtime at 5 days. There are some glitches in long run compute
+    # estimates that make the time estimate wildly wrong.
+    #
+
+    my $max_time = 86400 * 5;
+    $time = $max_time if $time > $max_time;
     
     my $cpu = 4;
 
